@@ -13,19 +13,19 @@ typedef struct j Joueur;
 // Trouve le cheval le plus proche de l'arrivée
 int trouve_plus_proche(int cheval1, int cheval2);
 
-//fait avancer le joueur de nombre de des (surtout utile pour la fonction escalier)
+//fait avancer le cheval de nombre de dé case
 void avance_normal(int des, int chevalNum, Joueur *j);
 
-//fait avancer mais verifie si respecte les regle du jeu avant d'acceder a l'escalier
+//fait avancer le cheval mais verifie si les regles du jeu sont bien respectés
 void avance(int des, int chevalNum, Joueur *j);
 
-/*la fonction fait monter le cheval pres de l'arrivé ou alors fait avancer l'autre cheval plus loin*/
+/*la fonction fait monter le cheval dans l'escalier  en route,vers l'arrivé ou alors fait avancer l'autre cheval plus loin*/
 void escalier(int des, int chevalNum, Joueur *j);
 
 // Faire un tour
-void tour(Joueur *j);
+void tour(Joueur* tab_j, Joueur *j);
 
-// renvoie 1 si 1 des tous cheveaux a attendu la case 65
+// renvoie 1 si 1 des tous cheveaux a attendu la case 63
 int gagne(Joueur *tab_j);
 
 #endif
