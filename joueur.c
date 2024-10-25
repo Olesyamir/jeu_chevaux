@@ -16,7 +16,7 @@ int trouve_plus_proche(int cheval1, int cheval2) {
     }
 }
 
-//fait avancer le joueur de nombre de des (surtout utile pour la fonction escalier)
+//fait avancer le joueur de nombre de dé en avant
 void avance_normal(int des, int chevalNum, Joueur *j) {
     if (chevalNum == 1) { // Si c'est le cheval 1
         j->cheval1 += des;
@@ -30,7 +30,7 @@ void avance_normal(int des, int chevalNum, Joueur *j) {
 }
 
 
-//fait avancer mais verifie si respecte les regle du jeu avant d'acceder a l'escalier
+//fait avancer le cheval mais verifie si les regles du jeu sont bien respectés
 void avance(int des, int chevalNum, Joueur *j) {
     int cheval;
     int autrecheval;
@@ -50,22 +50,24 @@ void avance(int des, int chevalNum, Joueur *j) {
         return; // Quitter la fonction si le numéro de cheval est invalide
     }
 
-    // Faire avancer le cheval
-    if (cheval + des > 58 &&  autrecheval + des < 58) {
-        printf("Le cheval %d NE PEUT PAS DEPASSER LA CASE 58 on va faire avancer l'autre cheval ", chevalNum);
-        // Faire avancer l'autre cheval car c'estt possible
+    
+    //le cheval arrive a laporte de l'escalier et n'a pas le bon nombre de dé necessaire, donc on fait deplacer l'autre cheval tant qu' il peut 
+    if (cheval + des > 56 &&  autrecheval + des < 56) {
+        printf("Le cheval %d ne peut pas depasser la case 56, on va faire avancer l'autre cheval ", chevalNum);
         avance_normal(des, num_autre_cheval, j);
-    } else if(cheval + des > 58 &&  autrecheval + des > 58){
-        //regle de escalier: avancer et reculer de cases en trop
+
+    //verifie si les 2 chevaux vont tenter de s'arreter a la porte de l'escalier , alors celui qui se deplace doit faire le bon  nombre sinon recule
+    } else if(cheval + des > 56 &&  autrecheval + des > 56){
+        // avancer et reculer de cases en trop
             
             if (chevalNum == 1) {
-                int cases_a_avancer = 58 - cheval;// avancer jusqu'a 58
+                int cases_a_avancer = 56 - cheval;// avancer jusqu'a 56
                 int case_a_reculer = des - cases_a_avancer;// reculer de case en trop
                 j->cheval1 += cases_a_avancer;
                 j->cheval1 -= case_a_reculer;
                 printf("Le cheval 1 s'est bien avancé de %d et a reculer de %d cases, et se trouve maintenant dans la case %d\n", cases_a_avancer,case_a_reculer, j->cheval1);
             } else {
-                int cases_a_avancer = 58 - autrecheval;// avancer jusqu'a 58
+                int cases_a_avancer = 56 - autrecheval;// avancer jusqu'a 56
                 int case_a_reculer=des-cases_a_avancer;// reculer de case en trop
                 j->cheval2 += cases_a_avancer;
                 j->cheval2 -= case_a_reculer;
@@ -76,11 +78,12 @@ void avance(int des, int chevalNum, Joueur *j) {
         // Avance normalement si c'est dans les limites
         avance_normal(des, chevalNum, j);
     }
+   
 }
 
 
 
-/*la fonction fait monter le cheval pres de l'arrivé ou alors fait avancer l'autre cheval plus loin*/
+/*la fonction fait monter le cheval dans l'escalier  en route,vers l'arrivé ou alors fait avancer l'autre cheval plus loin*/
 void escalier(int des, int chevalNum, Joueur *j) {
     printf("ESCALIER\n");
     int cheval;
@@ -100,34 +103,36 @@ void escalier(int des, int chevalNum, Joueur *j) {
     }
 
 
-    switch (cheval) {  // Change 'cheva' en 'cheval'
-        case 58: if (des == 1){avance(1, chevalNum, j);}  
-                    else{if (autrecheval<58){ avance(des, num_autre_cheval, j);}}break;
+    switch (cheval) { 
+        case 56: if (des == 1){avance(1, chevalNum, j);}  
+                    else{if (autrecheval<56){ avance(des, num_autre_cheval, j);}}break;
 
-        case 59: if (des == 2) {avance(1, chevalNum, j);}  
-                    else{if (autrecheval<58){ avance(des, num_autre_cheval, j);}}break;
+        case 57: if (des == 2) {avance(1, chevalNum, j);}  
+                    else{if (autrecheval<56){ avance(des, num_autre_cheval, j);}}break;
 
-        case 60: if (des == 3) {avance(1, chevalNum, j);}  
-                    else{if (autrecheval<58){avance(des, num_autre_cheval, j);}}break;
+        case 58: if (des == 3) {avance(1, chevalNum, j);}  
+                    else{if (autrecheval<56){avance(des, num_autre_cheval, j);}}break;
 
-        case 61: if (des == 4) {avance(1, chevalNum, j);}  
-                    else{if (autrecheval<58){avance(des, num_autre_cheval, j);}}break;
+        case 59: if (des == 4) {avance(1, chevalNum, j);}  
+                    else{if (autrecheval<56){avance(des, num_autre_cheval, j);}}break;
 
-        case 62: if (des == 5) {avance(1, chevalNum, j);}  
-                    else{if (autrecheval<58){avance(des, num_autre_cheval, j);}}break;
+        case 60: if (des == 5) {avance(1, chevalNum, j);}  
+                    else{if (autrecheval<56){avance(des, num_autre_cheval, j);}}break;
 
-        case 63: if (des == 6) {avance(1, chevalNum, j);}  
-                    else{if (autrecheval<58){avance(des, num_autre_cheval, j);}}break;
+        case 61: if (des == 6) {avance(1, chevalNum, j);}  
+                    else{if (autrecheval<56){avance(des, num_autre_cheval, j);}}break;
 
-        case 64: if (des == 6) {avance(1, chevalNum, j);}  
-                    else{if (autrecheval<58){avance(des, num_autre_cheval, j);}}break; 
-                    // Après il arrive sur la dernière case 65
+        case 62: if (des == 6) {avance(1, chevalNum, j);}  
+                    else{if (autrecheval<56){avance(des, num_autre_cheval, j);}}break; 
+                    // Après il arrive sur la dernière case 63
         default: printf("Ce n'est pas le bon nombre, tu ne peux pas avancer\n"); break;
     }
 }
 
 
-void tour(Joueur *j) {
+
+
+void tour(Joueur* tab_j, Joueur *j) {
     int cheval1 = j->cheval1;
     int cheval2 = j->cheval2;
 
@@ -147,11 +152,11 @@ void tour(Joueur *j) {
         }
     }
     // Escalier
-    else if (cheval1 >= 58 || cheval2 >= 58) {
+    else if (cheval1 >= 56 || cheval2 >= 56) {
         cheval = trouve_plus_proche(cheval1, cheval2);
         escalier(des, cheval == cheval1 ? 1 : 2, j);
     }
-    // Jeu où le cheval est entre la case 1 et 58
+    // Jeu où le cheval est entre la case 1 et 56
     else {
         cheval = trouve_plus_proche(cheval1, cheval2);
         if (des != 6) {
@@ -167,25 +172,26 @@ void tour(Joueur *j) {
         }
     }
 
-    // Vérifie si un cheval a atteint la case 65
-    if (j->cheval1 >= 65 || j->cheval2 >= 65) {
-        printf("Le joueur a gagné avec un cheval à la case %d !\n", j->cheval1 >= 65 ? j->cheval1 : j->cheval2);
-        // break; // Sort de la boucle si un cheval atteint la case 65
+    // Vérifie si un cheval a atteint la case 63
+    if (j->cheval1 >= 63 || j->cheval2 >= 63) {
+        printf("Le joueur a gagné avec un cheval à la case %d !\n", j->cheval1 >= 56 ? j->cheval1 : j->cheval2);
+
     }
 
     // Mets à jour les positions
     cheval1 = j->cheval1;
     cheval2 = j->cheval2;
 
-    if (des == 6){
+    if (des == 6 && gagne(tab_j)!=1){
         printf("Depuis que j'ai obtenu un 6, j'ai droit au deuxième tour\n");
-        tour(j);
+        tour(tab_j,j);
     }
 }
 
 int gagne(Joueur *tab_j){
     for (int i = 0; i < 4; i++) {
-        if (tab_j[i].cheval1 == 65 || tab_j[i].cheval2 == 65) {
+        if (tab_j[i].cheval1 == 63 || tab_j[i].cheval2 == 63) {
+            printf("LE JOUEUR NUMERO %d A GAGNE LA PARTIE!!!!!!!!!",i);
             return 1; 
         }
     }
