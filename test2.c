@@ -117,7 +117,7 @@ void tache_joueur(int tpi[4][2], int tt[4][2], int t_spe[2], int id_actuel) {
             // fair un tour seulement si personne a gagné (aucun cheval n'est pas à la case 65)
             if (gagne(tab_joueur) != 1) {
                 printf("\n ******************** TOUR de J%d******************** \n", id_actuel);
-                tour(&tab_joueur[id_actuel]); //& ???
+                tour(tab_joueur,&tab_joueur[id_actuel]); //& ???
                 printf("\n******************************************************\n");
             }
             
