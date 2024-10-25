@@ -33,19 +33,19 @@ void tache_pere(int tp[4][2], int t_spe[2]) {
         // Read result from the special pipe
         read(t_spe[0], &tab_joueur, sizeof(tab_joueur));
         printf("P a recu l'etat du jeu (par t_spe)\n");
-        printf(" -------------------------- L'ÉTAT DU JEU -------------------------- \n");
+        printf("\n-------------------------- L'ÉTAT DU JEU -------------------------- \n");
         printf("JOUEUR 0 : \n\t cheval 1 : %d,  cheval 2 : %d\n", tab_joueur[0].cheval1, tab_joueur[0].cheval2);
         printf("JOUEUR 1 : \n\t cheval 1 : %d,  cheval 2 : %d\n", tab_joueur[1].cheval1, tab_joueur[1].cheval2);
         printf("JOUEUR 2 : \n\t cheval 1 : %d,  cheval 2 : %d\n", tab_joueur[2].cheval1, tab_joueur[2].cheval2);
         printf("JOUEUR 3 : \n\t cheval 1 : %d,  cheval 2 : %d\n", tab_joueur[3].cheval1, tab_joueur[3].cheval2);
-        printf(" ---------------------------------------------------------------------\n");
+        printf("----------------------------------------------------------------------\n");
 
         i++;  // Move to the next round
         // revenir au debut vers le tour de 1er joueur si le jeu n'est pas fini
         if (i == 4 && gagne(tab_joueur) != 1) i = 0;
     }
 
-    printf(" **************************** FIN DU JEU ****************************\n");
+    printf("\n**************************** FIN DU JEU ****************************\n");
     printf("JOUEUR 0 : \n\t cheval 1 : %d,  cheval 2 : %d\n", tab_joueur[0].cheval1, tab_joueur[0].cheval2);
     printf("JOUEUR 1 : \n\t cheval 1 : %d,  cheval 2 : %d\n", tab_joueur[1].cheval1, tab_joueur[1].cheval2);
     printf("JOUEUR 2 : \n\t cheval 1 : %d,  cheval 2 : %d\n", tab_joueur[2].cheval1, tab_joueur[2].cheval2);
@@ -113,13 +113,12 @@ void tache_joueur(int tpi[4][2], int tt[4][2], int t_spe[2], int id_actuel) {
 
         if (id_actuel == id_joueur) {
             // If this process is the player, it writes the game state to its right neighbor
-            // x = 111;  // Example game state
 
-            // fair un tour seulement si personne a la case 65
+            // fair un tour seulement si personne a gagné (aucun cheval n'est pas à la case 65)
             if (gagne(tab_joueur) != 1) {
-                printf("\n*************** TOUR de J%d********************\n", id_actuel);
+                printf("\n ******************** TOUR de J%d******************** \n", id_actuel);
                 tour(&tab_joueur[id_actuel]); //& ???
-                printf("***********************************************\n");
+                printf("\n******************************************************\n");
             }
             
             printf("F (joueur) envoie l'etat du jeu a son voisin droit [%d]: cheval 1 : %d, cheval 2 : %d\n", 
